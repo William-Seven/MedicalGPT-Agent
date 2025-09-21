@@ -1,3 +1,7 @@
+***本项目基于MedicalGPT项目发展而来，尚处于研究阶段***
+
+----
+
 [**🇨🇳中文**](https://github.com/shibing624/MedicalGPT/blob/main/README.md) | [**🌐English**](https://github.com/shibing624/MedicalGPT/blob/main/README_EN.md) | [**📖文档/Docs**](https://github.com/shibing624/MedicalGPT/wiki) | [**🤖模型/Models**](https://huggingface.co/shibing624)
 
 -----------------
