@@ -1,5 +1,5 @@
 CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node 1 supervised_finetuning.py \
-    --model_name_or_path Qwen/Qwen2.5-0.5B-Instruct \
+    --model_name_or_path ./models/qwen05 \
     --train_file_dir ./data/finetune \
     --validation_file_dir ./data/finetune \
     --per_device_train_batch_size 4 \
@@ -24,7 +24,7 @@ CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node 1 supervised_finetuning.py \
     --save_total_limit 13 \
     --gradient_accumulation_steps 8 \
     --preprocessing_num_workers 4 \
-    --output_dir outputs-sft-qwen-v1 \
+    --output_dir outputs/outputs-sft-qwen-v1 \
     --overwrite_output_dir \
     --ddp_timeout 30000 \
     --logging_first_step True \

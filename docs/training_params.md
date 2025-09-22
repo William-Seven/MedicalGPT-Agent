@@ -1,13 +1,5 @@
 ## 训练脚本
-
-
-- 第一阶段：PT(Continue PreTraining)增量预训练 `run_pt.sh`
 - 第二阶段：SFT(Supervised Fine-tuning)有监督微调 `run_sft.sh`
-- 第三阶段
-  - RLHF(Reinforcement Learning from Human Feedback)分为两步：
-    - RM(Reward Model)奖励模型建模 `run_rm.sh`
-    - RL(Reinforcement Learning)基于人类反馈的强化学习 `run_ppo.sh`
-  - DPO(Direct Preference Optimization)直接偏好优化 `run_dpo.sh`
 
 
 ## 训练参数说明
@@ -88,23 +80,4 @@ deepspeed 的参数配置`deepspeed_config.json`可参考：
 
 如果显存充足，可优先考虑stage 2，对应的配置文件是`deepspeed_zero_stage2_config.json`。如果显存不足，可采用stage 3，对应的配置文件是`deepspeed_zero_stage3_config.json`，该模式采用模型参数并行，可显著减小显存占用，但是训练速度会变慢很多。
 
-
-**关于多机多卡训练**
-
-以两台机器为例，每台机器上有8张卡
-
-```shell
-node_rank=$1
-echo ${node_rank}
-master_addr="10.111.112.223"
-
-torchrun --nproc_per_node 8 --nnodes 2 --master_addr ${master_addr} --master_port 14545 --node_rank ${node_rank} run_supervised_finetuning.py ...
-```
-
-
-- node_rank 代表节点的rank，第一台机器（主机器）的node_rank设置为0，第二台机器的node_rank设置为1
-- nnodes 代表节点机器的数量
-- master_addr 代表主机器的ip地址
-- master_port 代表与主机器通信的端口号
-
-以上命令在两台机器各执行一次，两台机器的node_rank设置不同。
+ 
