@@ -1,40 +1,38 @@
 CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node 1 supervised_finetuning.py \
-    --model_name_or_path ./models/qwen05 \
+    --model_name_or_path ./models/qwen7b \
     --train_file_dir ./data/finetune \
-    --validation_file_dir ./data/finetune \
+    --validation_split_percentage 5 \
     --per_device_train_batch_size 4 \
     --per_device_eval_batch_size 4 \
     --do_train \
     --do_eval \
     --template_name qwen \
     --use_peft True \
-    --max_train_samples 1000 \
-    --max_eval_samples 10 \
-    --model_max_length 4096 \
-    --num_train_epochs 1 \
-    --learning_rate 2e-5 \
-    --warmup_ratio 0.05 \
+    --max_train_samples -1 \
+    --max_eval_samples -1 \
+    --model_max_length 2048 \
+    --num_train_epochs 50 \
+    --learning_rate 2e-4 \
+    --warmup_ratio 0.1 \
     --weight_decay 0.05 \
     --logging_strategy steps \
     --logging_steps 10 \
-    --eval_steps 50 \
+    --eval_steps 200 \
     --eval_strategy steps \
-    --save_steps 500 \
+    --save_steps 2000 \
     --save_strategy steps \
-    --save_total_limit 13 \
-    --gradient_accumulation_steps 8 \
+    --save_total_limit 5 \
+    --gradient_accumulation_steps 16 \
     --preprocessing_num_workers 4 \
     --output_dir outputs/outputs-sft-qwen-v1 \
     --overwrite_output_dir \
     --ddp_timeout 30000 \
     --logging_first_step True \
-    --target_modules all \
-    --lora_rank 8 \
-    --lora_alpha 16 \
+    --target_modules q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj \
+    --lora_rank 16 \
+    --lora_alpha 32 \
     --lora_dropout 0.05 \
-    --torch_dtype bfloat16 \
     --bf16 \
-    --device_map auto \
     --report_to tensorboard \
     --ddp_find_unused_parameters False \
     --gradient_checkpointing True \
