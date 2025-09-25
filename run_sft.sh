@@ -2,15 +2,15 @@ CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node 1 supervised_finetuning.py \
     --model_name_or_path ./models/qwen7b \
     --train_file_dir ./data/finetune \
     --validation_split_percentage 10 \
-    --per_device_train_batch_size 4 \
+    --per_device_train_batch_size 2 \
     --per_device_eval_batch_size 4 \
     --do_train \
     --do_eval \
     --template_name qwen \
     --use_peft True \
     --max_train_samples -1 \
-    --max_eval_samples 5000 \
-    --model_max_length 2048 \
+    --max_eval_samples 3000 \
+    --model_max_length 1024 \
     --num_train_epochs 4 \
     --learning_rate 2e-4 \
     --warmup_ratio 0.1 \
@@ -34,4 +34,4 @@ CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node 1 supervised_finetuning.py \
     --bf16 \
     --report_to tensorboard \
     --gradient_checkpointing True \
-    --cache_dir ./cache --flash_attn True
+    --cache_dir ./cache
